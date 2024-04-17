@@ -3,8 +3,12 @@ import {LogBox, Platform} from 'react-native';
 
 //@ts-ignore
 import NativeDevSettings from 'react-native/Libraries/NativeModules/specs/NativeDevSettings';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import RootNavi from 'navi/root';
+
+import {persistedStore, store} from './src/store';
 
 LogBox.ignoreAllLogs();
 
@@ -18,7 +22,13 @@ function App(): ReactElement {
       connectToRemoteDebugger();
     }
   }, []);
-  return <RootNavi />;
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistedStore}>
+        <RootNavi />
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default App;

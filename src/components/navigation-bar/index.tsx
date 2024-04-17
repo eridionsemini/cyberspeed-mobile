@@ -16,7 +16,7 @@ import {NavigationBarProps} from './types';
 
 import BackArrow from 'assets/svg/back.svg';
 
-export const Header: FC<NavigationBarProps> = ({
+export const NavigationBar: FC<NavigationBarProps> = ({
   composedTitleContent = null,
   title,
   leftContent = <BackArrow />,

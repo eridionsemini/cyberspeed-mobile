@@ -1,26 +1,77 @@
-import {apiSlice} from '../api';
-import {MoviesSearchQueryParams, MoviesSearchResponse} from './types';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {
+  incrementMoviesListPage,
+  refreshMoviesList,
+  resetMoviesListPage,
+  getMoviesList,
+  loadMoreMovies,
+} from './actions';
+import {MoviesReducer, MoviesSearchResponse} from './types';
+import {RootState} from '../helpers';
 
-export const moviesSlice = apiSlice.injectEndpoints({
-  endpoints: build => ({
-    getMovies: build.query<MoviesSearchResponse, MoviesSearchQueryParams>({
-      query: ({s, page}) => ({url: `?apikey=400fbde2&s=${s}&page=${page}`}),
-      serializeQueryArgs: ({endpointName, queryArgs}) => {
-        return {
-          endpointName,
-        };
-      },
-      merge: (currentCache, newItems) => {
-        if (currentCache.Search) {
-          currentCache.Search.push(...newItems.Search);
-        }
-        return newItems;
-      },
-      forceRefetch({currentArg, previousArg}) {
-        return currentArg !== previousArg;
-      },
-    }),
-  }),
+const initialState: MoviesReducer = {
+  data: [],
+  loading: false,
+  refreshing: false,
+  totalResults: '',
+  hasMore: true,
+};
+
+const moviesSlice = createSlice({
+  name: 'moviesSlice',
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(getMoviesList.pending, state => {
+        state.loading = true;
+      })
+      .addCase(getMoviesList.rejected, state => {
+        state.loading = false;
+      })
+      .addCase(getMoviesList.fulfilled, (state, action: PayloadAction<MoviesSearchResponse>) => {
+        state.loading = false;
+        state.data = action.payload.Search;
+        state.hasMore = Number(action.payload.totalResults) > 10;
+      })
+      .addCase(refreshMoviesList.pending, state => {
+        state.refreshing = true;
+      })
+      .addCase(refreshMoviesList.rejected, state => {
+        state.refreshing = false;
+      })
+      .addCase(
+        refreshMoviesList.fulfilled,
+        (state, action: PayloadAction<MoviesSearchResponse>) => {
+          state.refreshing = false;
+          state.data = action.payload.Search;
+          state.hasMore = Number(action.payload.totalResults) > 10;
+        },
+      )
+      .addCase(loadMoreMovies.pending, state => {
+        state.loading = true;
+      })
+      .addCase(refreshMoviesList.rejected, state => {
+        state.loading = false;
+      })
+      .addCase(
+        refreshMoviesList.fulfilled,
+        (state, action: PayloadAction<MoviesSearchResponse>) => {
+          state.refreshing = false;
+          state.data = state.data.concat(action.payload.Search);
+          state.hasMore = Number(action.payload.totalResults) > 10;
+        },
+      );
+  },
 });
+export {
+  getMoviesList,
+  loadMoreMovies,
+  refreshMoviesList,
+  incrementMoviesListPage,
+  resetMoviesListPage,
+};
 
-export const {useGetMoviesQuery} = moviesSlice;
+export const {reducer: moviesReducer} = moviesSlice;
+
+export const moviesSelector = (state: RootState): MoviesReducer => state.movies;

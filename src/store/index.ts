@@ -14,13 +14,13 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
-import {apiSlice} from './api';
+import {moviesReducer} from './movies';
 import {favouriteMoviesReducer} from './favourites';
 import {RootState} from './helpers';
 
 export const rootReducer = combineReducers({
   favourites: favouriteMoviesReducer,
-  [apiSlice.reducerPath]: apiSlice.reducer,
+  movies: moviesReducer,
 });
 
 const appReducer = (state: RootState | undefined, action: Action): RootState => {
@@ -46,7 +46,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([apiSlice.middleware, logger]),
+    }).concat([logger]),
 });
 
 const persistedStore = persistStore(store);

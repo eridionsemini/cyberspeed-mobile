@@ -10,3 +10,15 @@ export interface MoviesSearchResponse {
   totalResults: string;
   Response: string;
 }
+
+export type ThunkName = 'getMoviesList' | 'loadMoreMovies' | 'refreshMoviesList';
+
+export type RequestConfig = (s: string, page: number) => string;
+
+export interface MoviesReducer {
+  data: Movie[];
+  totalResults: string;
+  loading: boolean;
+  refreshing: boolean;
+  hasMore: boolean;
+}

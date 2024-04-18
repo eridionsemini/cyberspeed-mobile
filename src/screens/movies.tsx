@@ -28,8 +28,8 @@ export const Movies: FC = (): ReactElement => {
   const dispatch = useAppDispatch();
 
   const onRefresh = () => {
+    dispatch(refreshMoviesList({ page:1, s }));
     dispatch(resetMoviesListPage());
-    dispatch(refreshMoviesList({ page, s }));
   };
 
   const onEndReached = () => {

@@ -1,14 +1,15 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {RootState} from '../helpers';
+import { RootState } from '../helpers';
 import {
   getMoviesList,
   incrementMoviesListPage,
   loadMoreMovies,
   refreshMoviesList,
   resetMoviesListPage,
+  setFilterValue
 } from './actions';
-import {MoviesReducer, MoviesSearchResponse} from './types';
+import { FilterKeys, MoviesReducer, MoviesSearchResponse } from './types';
 
 const initialState: MoviesReducer = {
   data: [],
@@ -69,7 +70,13 @@ const moviesSlice = createSlice({
       })
       .addCase(resetMoviesListPage.type, state => {
         state.page = 1;
-      });
+      }).addCase(setFilterValue.type, (state, action: PayloadAction<{ key: FilterKeys, value: string }>) => {
+        const key = action.payload.key;
+        if (Object.keys(state.filter).includes(key as string)) {
+          state.filter[key] = action.payload.value;
+        }
+
+      })
   },
 });
 
@@ -79,8 +86,9 @@ export {
   refreshMoviesList,
   incrementMoviesListPage,
   resetMoviesListPage,
+  setFilterValue
 };
 
-export const {reducer: moviesReducer} = moviesSlice;
+export const { reducer: moviesReducer } = moviesSlice;
 
 export const moviesSelector = (state: RootState): MoviesReducer => state.movies;

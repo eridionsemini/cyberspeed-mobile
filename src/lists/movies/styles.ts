@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     fontWeight: '900',
-    color: colors.CYAN_800,
-    shadowColor: colors.CYAN_200,
+    color: colors.PURPLE_800,
+    shadowColor: colors.PURPLE_200,
     shadowOffset: {
       width: 5,
       height: 5,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontWeight: '900',
     textTransform: 'capitalize',
-    color: colors.CYAN_800,
+    color: colors.PURPLE_800,
   },
 });
 

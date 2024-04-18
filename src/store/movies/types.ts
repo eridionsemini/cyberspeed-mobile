@@ -1,4 +1,4 @@
-import {Movie} from 'general-types';
+import { Movie } from 'general-types';
 
 export interface MoviesSearchQueryParams {
   s: string;
@@ -15,9 +15,11 @@ export type ThunkName = 'getMoviesList' | 'loadMoreMovies' | 'refreshMoviesList'
 
 export type RequestConfig = (s: string, page: number) => string;
 
-interface Filter {
-  s: string;
+export interface Filter {
+  [key: string]: string;
 }
+
+export type FilterKeys = keyof Filter;
 
 export interface MoviesReducer {
   data: Movie[];
@@ -28,3 +30,4 @@ export interface MoviesReducer {
   page: number;
   filter: Filter;
 }
+

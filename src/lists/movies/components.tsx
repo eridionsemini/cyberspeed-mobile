@@ -1,21 +1,21 @@
-import React, {FC, memo, ReactElement} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, { FC, memo, ReactElement } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 
-import {getMargins} from 'utils';
+import { getMargins } from 'utils';
 
-import {Heart} from 'components/';
+import { Heart } from 'components/';
 
 import styles from './styles';
-import {MovieItemProps} from './types';
+import { MovieItemProps } from './types';
 
 export const Movie: FC<MovieItemProps> = memo(
-  ({handleItemPress, handleHeartPress, movie, isFavourite}): ReactElement => {
+  ({ handleItemPress, handleHeartPress, movie, isFavourite }): ReactElement => {
     return (
       <TouchableOpacity
         onPress={() => handleItemPress && handleItemPress(movie.imdbID)}
-        style={[styles.movieCard, getMargins({top: 'sm', bottom: 'sm'})]}>
+        style={[styles.movieCard, getMargins({ top: 'sm', bottom: 'sm' })]}>
         <FastImage
           style={styles.image}
           source={{

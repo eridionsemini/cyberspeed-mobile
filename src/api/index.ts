@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, {AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
-const baseUrl = `https://www.omdbapi.com/`
-;
-
+const baseUrl = `https://www.omdbapi.com/`;
 const instance = axios.create({
   baseURL: baseUrl,
   timeout: 100000,

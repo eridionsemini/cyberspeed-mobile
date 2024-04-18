@@ -7,25 +7,54 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { NavigationBar } from 'components/';
 
 import commonStyles from 'assets/styles/common';
-import { moviesSelector, getMoviesList } from 'store/movies';
+import {
+  moviesSelector,
+  getMoviesList,
+  refreshMoviesList,
+  incrementMoviesListPage,
+  loadMoreMovies,
+  resetMoviesListPage,
+} from 'store/movies';
 
 export const Movies: FC = (): ReactElement => {
-  const [page, setPage] = useState<number>(1);
-  const { data, loading, refreshing } = useAppSelector(moviesSelector);
+  const {
+    data,
+    loading,
+    refreshing,
+    hasMore,
+    page,
+    filter: { s },
+  } = useAppSelector(moviesSelector);
   const dispatch = useAppDispatch();
+
+  const onRefresh = () => {
+    dispatch(resetMoviesListPage());
+    dispatch(refreshMoviesList({ page, s }));
+  };
+
   const onEndReached = () => {
-    console.log('on end reached');
-    setPage(page + 1);
+    if (hasMore) {
+      dispatch(loadMoreMovies({ page: page + 1, s }));
+      dispatch(incrementMoviesListPage());
+
+    }
   };
 
   useEffect(() => {
-    dispatch(getMoviesList({ page: 1, s: 'movie' }))
-  }, [])
+    if (!loading && data.length === 0) {
+      dispatch(getMoviesList({ s: 'movie', page: 1 }));
+    }
+  }, [data.length, dispatch, loading, page]);
 
   return (
     <SafeAreaView style={[commonStyles.container]}>
       <NavigationBar title="Movies" />
-      <MoviesList data={data} onEndReached={onEndReached} />
+      <MoviesList
+        data={data}
+        onEndReached={onEndReached}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
+      />
     </SafeAreaView>
   );
 };

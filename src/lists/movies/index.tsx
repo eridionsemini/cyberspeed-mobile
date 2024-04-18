@@ -1,13 +1,14 @@
 import React, {FC, ReactElement} from 'react';
 import {VirtualizedList} from 'react-native';
 
-import {getItem, getItemCount, keyExtractor} from 'utils';
+import {getItem, getItemCount, isFavourite, keyExtractor} from 'utils';
 
 import {Movie} from './components';
 import {ListItem, MoviesListProps} from './types';
 
 export const MoviesList: FC<MoviesListProps> = ({
   data = [],
+  fav = [],
   onEndReached,
   onEndReachedThreshold = 0.9,
   refreshing = false,
@@ -15,8 +16,16 @@ export const MoviesList: FC<MoviesListProps> = ({
   showsVerticalScrollIndicator = false,
   onRefresh,
   handleItemPress,
+  handleHeartPress,
 }): ReactElement => {
-  const renderItem = ({item}: ListItem) => <Movie handleItemPress={handleItemPress} movie={item} />;
+  const renderItem = ({item}: ListItem) => (
+    <Movie
+      handleItemPress={handleItemPress}
+      isFavourite={isFavourite(fav, item.imdbID)}
+      handleHeartPress={handleHeartPress}
+      movie={item}
+    />
+  );
 
   return (
     <VirtualizedList

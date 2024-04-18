@@ -7,14 +7,25 @@ import {BottomTabNaviParams} from 'navi/types';
 
 import styles from './styles';
 
+import Home from 'assets/svg/home.svg';
+import HomeSelected from 'assets/svg/home-selected.svg';
+import Wish from 'assets/svg/wish.svg';
+import WishSelected from 'assets/svg/wish-selected.svg';
+
 export type RouteNamePropsUser = keyof BottomTabNaviParams;
 
-const handleIconDisplay = (tab: string) => {
+const handleIconDisplay = (tab: string, focused: boolean) => {
   switch (tab) {
     case 'movies':
-      return '';
+      if (focused) {
+        return <HomeSelected />;
+      }
+      return <Home />;
     case 'favourites':
-      return '';
+      if (focused) {
+        return <WishSelected />;
+      }
+      return <Wish />;
     default:
       return null;
   }
@@ -38,7 +49,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({navigation}) => {
             key={index.toString()}
             accessibilityRole="button"
             onPress={onPress}>
-            {handleIconDisplay(route.name)}
+            {handleIconDisplay(route.name, isFocused)}
             <Text style={isFocused ? styles.tabItemTextFocused : styles.tabItemText}>
               {route.name}
             </Text>

@@ -1,3 +1,5 @@
+import {Movie} from 'general-types';
+
 export interface FavouritesSliceReducer {
-  list: Array<{name: string}>;
+  data: Array<Movie>;
 }

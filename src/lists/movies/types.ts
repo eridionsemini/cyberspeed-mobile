@@ -9,6 +9,8 @@ export interface MoviesListProps {
   onRefresh?: () => void;
   refreshing?: boolean | undefined;
   handleItemPress?: (v: string) => void;
+  handleHeartPress: (v: Movie) => void;
+  fav: Array<Movie>;
 }
 
 export interface ListItem {
@@ -19,4 +21,6 @@ export interface ListItem {
 export interface MovieItemProps {
   movie: Movie;
   handleItemPress?: (title: string) => void;
+  handleHeartPress: (v: Movie) => void;
+  isFavourite: boolean;
 }

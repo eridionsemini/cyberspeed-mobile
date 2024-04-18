@@ -4,6 +4,11 @@ import {SafeAreaView} from 'react-native';
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
 import {
+  addMovieToFavourites,
+  favouritesSelector,
+  removeMovieFromFavourites,
+} from 'store/favourites';
+import {
   getMoviesList,
   incrementMoviesListPage,
   loadMoreMovies,
@@ -11,8 +16,11 @@ import {
   refreshMoviesList,
   resetMoviesListPage,
 } from 'store/movies';
+import {isFavourite} from 'utils';
 
 import {NavigationBar} from 'components/';
+
+import {Movie} from 'general-types';
 
 import {MoviesProps} from './types';
 
@@ -27,8 +35,9 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
     page,
     filter: {s},
   } = useAppSelector(moviesSelector);
+  const {data: fav} = useAppSelector(favouritesSelector);
   const dispatch = useAppDispatch();
-
+  console.log({fav});
   const onRefresh = () => {
     dispatch(refreshMoviesList({page: 1, s}));
     dispatch(resetMoviesListPage());
@@ -45,6 +54,15 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
     navigation.navigate('movieDetails', {id: v});
   };
 
+  const handleHeartPress = (movie: Movie) => {
+    const isFav = isFavourite(fav, movie.imdbID);
+    if (isFav) {
+      dispatch(removeMovieFromFavourites(movie));
+      return;
+    }
+    dispatch(addMovieToFavourites(movie));
+  };
+
   useEffect(() => {
     if (!loading && data.length === 0) {
       dispatch(getMoviesList({s: 'movie', page: 1}));
@@ -56,10 +74,12 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
       <NavigationBar title="Movies" />
       <MoviesList
         data={data}
+        fav={fav}
         onEndReached={onEndReached}
         onRefresh={onRefresh}
         refreshing={refreshing}
         handleItemPress={handleItemPress}
+        handleHeartPress={handleHeartPress}
       />
     </SafeAreaView>
   );

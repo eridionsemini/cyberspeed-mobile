@@ -1,13 +1,8 @@
+import {Movie} from 'general-types';
+
 export interface MoviesSearchQueryParams {
   s: string;
-}
-
-interface Movie {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Type: string;
-  Poster: string;
+  page: number;
 }
 
 export interface MoviesSearchResponse {

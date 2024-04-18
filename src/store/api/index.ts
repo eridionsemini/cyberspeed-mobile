@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
-const baseUrl = 'https://www.omdbapi.com/?apikey=400fbde2&';
+const baseUrl = 'https://www.omdbapi.com/';
 
 export const apiSlice = createApi({
   reducerPath: 'api',

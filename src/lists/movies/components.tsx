@@ -1,5 +1,5 @@
 import React, {FC, memo, ReactElement} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 
@@ -20,6 +20,13 @@ export const Movie: FC<MovieItemProps> = memo(({handleItemPress, movie}): ReactE
         }}
         resizeMode={FastImage.resizeMode.cover}
       />
+      <View style={[styles.infoCard, getMargins({left: 'md'})]}>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
+          {movie.Title}
+        </Text>
+        <Text style={[styles.movieType, getMargins({top: 'sm'})]}>Type : {movie.Type}</Text>
+        <Text style={[styles.movieYear, getMargins({top: 'sm'})]}>Year {movie.Year}</Text>
+      </View>
     </TouchableOpacity>
   );
 });

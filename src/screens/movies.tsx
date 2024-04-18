@@ -1,10 +1,10 @@
-import React, { FC, ReactElement, useState, useEffect } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import React, {FC, ReactElement, useEffect} from 'react';
+import {SafeAreaView} from 'react-native';
 
-import { MoviesList } from 'lists';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import {MoviesList} from 'lists';
+import {useAppDispatch, useAppSelector} from '../hooks';
 
-import { NavigationBar } from 'components/';
+import {NavigationBar} from 'components/';
 
 import commonStyles from 'assets/styles/common';
 import {
@@ -23,26 +23,25 @@ export const Movies: FC = (): ReactElement => {
     refreshing,
     hasMore,
     page,
-    filter: { s },
+    filter: {s},
   } = useAppSelector(moviesSelector);
   const dispatch = useAppDispatch();
 
   const onRefresh = () => {
-    dispatch(refreshMoviesList({ page:1, s }));
+    dispatch(refreshMoviesList({page: 1, s}));
     dispatch(resetMoviesListPage());
   };
 
   const onEndReached = () => {
     if (hasMore) {
-      dispatch(loadMoreMovies({ page: page + 1, s }));
+      dispatch(loadMoreMovies({page: page + 1, s}));
       dispatch(incrementMoviesListPage());
-
     }
   };
 
   useEffect(() => {
     if (!loading && data.length === 0) {
-      dispatch(getMoviesList({ s: 'movie', page: 1 }));
+      dispatch(getMoviesList({s: 'movie', page: 1}));
     }
   }, [data.length, dispatch, loading, page]);
 

@@ -14,9 +14,9 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 
-import {moviesReducer} from './movies';
 import {favouriteMoviesReducer} from './favourites';
 import {RootState} from './helpers';
+import {moviesReducer} from './movies';
 
 export const rootReducer = combineReducers({
   favourites: favouriteMoviesReducer,

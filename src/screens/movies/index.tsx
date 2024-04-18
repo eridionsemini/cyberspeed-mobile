@@ -1,22 +1,24 @@
 import React, {FC, ReactElement, useEffect} from 'react';
 import {SafeAreaView} from 'react-native';
 
+import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
-import {useAppDispatch, useAppSelector} from '../hooks';
-
-import {NavigationBar} from 'components/';
-
-import commonStyles from 'assets/styles/common';
 import {
-  moviesSelector,
   getMoviesList,
-  refreshMoviesList,
   incrementMoviesListPage,
   loadMoreMovies,
+  moviesSelector,
+  refreshMoviesList,
   resetMoviesListPage,
 } from 'store/movies';
 
-export const Movies: FC = (): ReactElement => {
+import {NavigationBar} from 'components/';
+
+import {MoviesProps} from './types';
+
+import commonStyles from 'assets/styles/common';
+
+export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
   const {
     data,
     loading,
@@ -39,6 +41,10 @@ export const Movies: FC = (): ReactElement => {
     }
   };
 
+  const handleItemPress = (v: string) => {
+    navigation.navigate('movieDetails', {id: v});
+  };
+
   useEffect(() => {
     if (!loading && data.length === 0) {
       dispatch(getMoviesList({s: 'movie', page: 1}));
@@ -53,6 +59,7 @@ export const Movies: FC = (): ReactElement => {
         onEndReached={onEndReached}
         onRefresh={onRefresh}
         refreshing={refreshing}
+        handleItemPress={handleItemPress}
       />
     </SafeAreaView>
   );

@@ -3,8 +3,7 @@ import React, {FC} from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Movie, Movies} from 'screens/';
-
+import BottomNavi from './bottom';
 import {headerOptions, navigationRef, RootStackParamList} from './types';
 
 const theme = {
@@ -27,13 +26,7 @@ const RootStackNavi = () => {
         animationEnabled: true,
         headerShown: false,
       }}>
-      <Stack.Screen name="moviesList" options={headerOptions} component={Movies} />
-      <Stack.Screen
-        name="movieDetails"
-        options={headerOptions}
-        initialParams={{id: null}}
-        component={Movie}
-      />
+      <Stack.Screen name="bottomNavi" options={headerOptions} component={BottomNavi} />
     </Stack.Navigator>
   );
 };

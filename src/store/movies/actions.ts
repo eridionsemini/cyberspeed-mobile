@@ -2,7 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import api from 'api';
 
 import {createAppAsyncThunk, ThunkConfig} from '../helpers';
-import {MoviesSearchResponse, MoviesSearchQueryParams, ThunkName, RequestConfig} from './types';
+import {MoviesSearchQueryParams, MoviesSearchResponse, RequestConfig, ThunkName} from './types';
 
 const moviesAsyncThunk = (thunkName: ThunkName, requestConfig: RequestConfig) => {
   return createAppAsyncThunk<MoviesSearchResponse, MoviesSearchQueryParams, ThunkConfig>(

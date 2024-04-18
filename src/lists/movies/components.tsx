@@ -1,16 +1,17 @@
 import React, {FC, memo, ReactElement} from 'react';
-import {TouchableOpacity, View, Text} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 import FastImage from 'react-native-fast-image';
 
+import {getMargins} from 'utils';
+
 import styles from './styles';
 import {MovieItemProps} from './types';
-import {getMargins} from 'utils';
 
 export const Movie: FC<MovieItemProps> = memo(({handleItemPress, movie}): ReactElement => {
   return (
     <TouchableOpacity
-      onPress={() => handleItemPress && handleItemPress(movie.Title)}
+      onPress={() => handleItemPress && handleItemPress(movie.imdbID)}
       style={[styles.movieCard, getMargins({top: 'sm', bottom: 'sm'})]}>
       <FastImage
         style={styles.image}

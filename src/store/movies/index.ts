@@ -1,13 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+
+import {RootState} from '../helpers';
 import {
+  getMoviesList,
   incrementMoviesListPage,
+  loadMoreMovies,
   refreshMoviesList,
   resetMoviesListPage,
-  getMoviesList,
-  loadMoreMovies,
 } from './actions';
 import {MoviesReducer, MoviesSearchResponse} from './types';
-import {RootState} from '../helpers';
 
 const initialState: MoviesReducer = {
   data: [],

@@ -18,7 +18,7 @@ const moviesAsyncThunk = (thunkName: ThunkName, requestConfig: RequestConfig) =>
   );
 };
 
-const movieRequestConfig: RequestConfig = (s, page) => `&page=${page}&s=${s}`;
+const movieRequestConfig: RequestConfig = (s, page) => `?apiKey=400fbde2&page=${page}&s=${s}`;
 
 export const getMoviesList = moviesAsyncThunk('getMoviesList', movieRequestConfig);
 

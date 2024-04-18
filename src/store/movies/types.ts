@@ -1,4 +1,4 @@
-import { Movie } from 'general-types';
+import {Movie} from 'general-types';
 
 export interface MoviesSearchQueryParams {
   s: string;
@@ -30,4 +30,3 @@ export interface MoviesReducer {
   page: number;
   filter: Filter;
 }
-

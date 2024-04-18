@@ -16,20 +16,14 @@ import {
 
 import {favouriteMoviesReducer} from './favourites';
 import {RootState} from './helpers';
+import {movieReducer} from './movie';
 import {moviesReducer} from './movies';
 
 export const rootReducer = combineReducers({
   favourites: favouriteMoviesReducer,
   movies: moviesReducer,
+  movie: movieReducer,
 });
-
-const appReducer = (state: RootState | undefined, action: Action): RootState => {
-  ///  clear redux state after logout
-  if (action.type === 'user/logout') {
-    return rootReducer(undefined, action);
-  }
-  return rootReducer(state, action);
-};
 
 const persistConfig: PersistConfig<RootState> = {
   key: 'root',
@@ -37,7 +31,8 @@ const persistConfig: PersistConfig<RootState> = {
   whitelist: ['favourites'],
   version: 1,
 };
-const persistedReducer = persistReducer(persistConfig, appReducer);
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,

@@ -1,23 +1,11 @@
-import React, {FC, ReactElement, useEffect, useState} from 'react';
+import React, {FC, ReactElement, useContext, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native';
+
+import {SDKContext} from '__root/src/context';
 
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
-import {
-  addMovieToFavourites,
-  favouritesSelector,
-  removeMovieFromFavourites,
-} from 'store/favourites';
 import {getMovieDetails} from 'store/movie';
-import {
-  getMoviesList,
-  incrementMoviesListPage,
-  loadMoreMovies,
-  moviesSelector,
-  refreshMoviesList,
-  resetMoviesListPage,
-  setFilterValue,
-} from 'store/movies';
 import {debounce, isFavourite} from 'utils';
 
 import {InputText, MoviesListEmptyComponent, Spinner} from 'components/';
@@ -30,6 +18,21 @@ import commonStyles from 'assets/styles/common';
 
 export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
   const [fetched, setFetched] = useState<boolean>(false);
+
+  const {getActions, getSelectors} = useContext(SDKContext);
+
+  const {favouritesSelector, moviesSelector} = getSelectors();
+  const {
+    refreshMoviesList,
+    resetMoviesListPage,
+    getMoviesList,
+    incrementMoviesListPage,
+    loadMoreMovies,
+    setFilterValue,
+    addMovieToFavourites,
+    removeMovieFromFavourites,
+  } = getActions();
+
   const {
     data,
     loading,
@@ -82,7 +85,7 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
       dispatch(getMoviesList({s: 'movie', page: 1}));
       setFetched(true);
     }
-  }, [data, dispatch, loading, page, fetched]);
+  }, [data, dispatch, loading, page, fetched, getMoviesList]);
 
   return (
     <SafeAreaView style={[commonStyles.container]}>

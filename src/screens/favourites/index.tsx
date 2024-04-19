@@ -1,9 +1,10 @@
-import React, {FC, ReactElement} from 'react';
+import React, {FC, ReactElement, useContext} from 'react';
 import {SafeAreaView, Text} from 'react-native';
+
+import {SDKContext} from '__root/src/context';
 
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
-import {favouritesSelector, removeMovieFromFavourites} from 'store/favourites';
 import {getMovieDetails} from 'store/movie';
 import {getMargins} from 'utils';
 
@@ -17,6 +18,9 @@ import {FavouritesProps} from './types';
 import commonStyles from 'assets/styles/common';
 
 export const Favourites: FC<FavouritesProps> = ({navigation}): ReactElement => {
+  const {getActions, getSelectors} = useContext(SDKContext);
+  const {favouritesSelector} = getSelectors();
+  const {removeMovieFromFavourites} = getActions();
   const dispatch = useAppDispatch();
   const {data: fav} = useAppSelector(favouritesSelector);
 

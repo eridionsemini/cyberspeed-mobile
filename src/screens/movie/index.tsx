@@ -1,16 +1,11 @@
-import React, {FC, ReactElement, useCallback, useEffect} from 'react';
+import React, {FC, ReactElement, useCallback, useContext, useEffect} from 'react';
 import {BackHandler, RefreshControl, SafeAreaView, ScrollView, Text, View} from 'react-native';
 
+import {SDKContext} from '__root/src/context';
 import {CommonActions} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
 import {useAppDispatch, useAppSelector} from 'hooks';
-import {
-  addMovieToFavourites,
-  favouritesSelector,
-  removeMovieFromFavourites,
-} from 'store/favourites';
-import {clearMovieDetails, movieDetailsSelector, refreshMovieDetails} from 'store/movie';
 import {convertStringToArray, getMargins, isFavourite} from 'utils';
 
 import {Heart, NavigationBar, Spinner} from 'components/';
@@ -26,14 +21,18 @@ export const Movie: FC<MovieProps> = ({
     params: {id},
   },
 }): ReactElement | null => {
+  const {getActions, getSelectors} = useContext(SDKContext);
   const dispatch = useAppDispatch();
+  const {favouritesSelector, movieDetailsSelector} = getSelectors();
+  const {addMovieToFavourites, removeMovieFromFavourites, clearMovieDetails, refreshMovieDetails} =
+    getActions();
   const {details: movie, refreshing, loading} = useAppSelector(movieDetailsSelector);
   const {data: fav} = useAppSelector(favouritesSelector);
 
   const handleLeftContentPress = useCallback(() => {
     navigation.dispatch(CommonActions.goBack());
     dispatch(clearMovieDetails());
-  }, [navigation, dispatch]);
+  }, [navigation, dispatch, clearMovieDetails]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {

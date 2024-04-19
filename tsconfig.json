@@ -55,6 +55,9 @@
       "general-types": [
         "src/general-types/"
       ],
+      "context": [
+        "src/context/"
+      ],
       "lists": [
         "src/lists/"
       ]

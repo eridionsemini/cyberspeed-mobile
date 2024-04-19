@@ -1,10 +1,10 @@
 import React, {FC, ReactElement, useCallback, useContext, useEffect} from 'react';
 import {BackHandler, RefreshControl, SafeAreaView, ScrollView, Text, View} from 'react-native';
 
-import {SDKContext} from '__root/src/context';
 import {CommonActions} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
+import {SDKContext} from 'context';
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {convertStringToArray, getMargins, isFavourite} from 'utils';
 

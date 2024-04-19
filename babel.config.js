@@ -21,6 +21,7 @@ module.exports = {
           types: './src/types',
           utils: './src/utils',
           lists: './src/lists',
+          context: './src/context',
         },
       },
     ],

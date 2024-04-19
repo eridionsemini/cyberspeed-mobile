@@ -21,7 +21,7 @@ export const Spinner: FC<SpinnerProps> = ({
     <ActivityIndicator
       size={size}
       color={color}
-      style={[absCenter && centered, getMargins({top: 'sm', bottom: 'sm'})]}
+      style={[absCenter && centered, getMargins({top: 'md', bottom: 'md'})]}
     />
   );
 };

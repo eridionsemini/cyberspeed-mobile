@@ -1,5 +1,7 @@
 import {Platform, StyleSheet} from 'react-native';
 
+import {spacing} from '__root/src/cons';
+
 const styles = StyleSheet.create({
   tabContainer: {
     display: 'flex',
@@ -7,7 +9,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
-    marginBottom: Platform.OS === 'ios' ? 16 : 0,
+    marginBottom: Platform.OS === 'ios' ? spacing.md : 0,
+    marginTop: spacing.sm,
   },
   tabItem: {
     display: 'flex',

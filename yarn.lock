@@ -5523,7 +5523,7 @@ mkdirp@^1.0.4:
 
 "movies-sdk@https://github.com/eridionsemini/movies-sdk.git":
   version "1.0.0"
-  resolved "https://github.com/eridionsemini/movies-sdk.git#791159f83b3c18cb4ba676797d833d6bc30a238c"
+  resolved "https://github.com/eridionsemini/movies-sdk.git#d01f0b4b84145664a59aff76ac577e1d7a2b3419"
   dependencies:
     "@reduxjs/toolkit" "^2.2.3"
     axios "^1.6.8"

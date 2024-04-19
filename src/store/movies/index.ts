@@ -61,7 +61,7 @@ const moviesSlice = createSlice({
         state.loading = false;
       })
       .addCase(loadMoreMovies.fulfilled, (state, action: PayloadAction<MoviesSearchResponse>) => {
-        state.refreshing = false;
+        state.loading = false;
         state.data = state.data.concat(action.payload.Search);
         state.hasMore = Number(action.payload.totalResults) > 10;
       })

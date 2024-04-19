@@ -94,7 +94,7 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
         autoCapitalize="none"
       />
       <MoviesList
-        data={[]}
+        data={data ?? []}
         fav={fav}
         onEndReached={onEndReached}
         onRefresh={onRefresh}

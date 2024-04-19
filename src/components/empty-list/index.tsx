@@ -20,7 +20,7 @@ export const MoviesListEmptyComponent: FC = (): ReactElement => {
 export const FavouriteMoviesListEmptyComponent: FC = (): ReactElement => {
   return (
     <View style={styles.view}>
-      <Text>Hhhhmmmmm!</Text>
+      <Text style={styles.title}>Hhhhmmmmm!</Text>
       <Text style={[styles.info, getMargins({top: 'sm'})]}>
         Is seems you haven't added any movie yet
       </Text>

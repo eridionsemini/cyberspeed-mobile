@@ -4,7 +4,7 @@ import {BackHandler, RefreshControl, SafeAreaView, ScrollView, Text, View} from 
 import {CommonActions} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
-import {SDKContext} from 'context';
+import {SDKContext} from '__root/src/context';
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {convertStringToArray, getMargins, isFavourite} from 'utils';
 

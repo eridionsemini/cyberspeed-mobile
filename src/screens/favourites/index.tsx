@@ -1,7 +1,7 @@
 import React, {FC, ReactElement, useContext} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
-import {SDKContext} from 'context';
+import {SDKContext} from '__root/src/context';
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
 import {getMargins} from 'utils';

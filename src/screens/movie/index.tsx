@@ -1,5 +1,5 @@
-import React, {FC, ReactElement} from 'react';
-import {RefreshControl, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import React, {FC, ReactElement, useCallback, useEffect} from 'react';
+import {BackHandler, RefreshControl, SafeAreaView, ScrollView, Text, View} from 'react-native';
 
 import {CommonActions} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
@@ -30,6 +30,18 @@ export const Movie: FC<MovieProps> = ({
   const {details: movie, refreshing, loading} = useAppSelector(movieDetailsSelector);
   const {data: fav} = useAppSelector(favouritesSelector);
 
+  const handleLeftContentPress = useCallback(() => {
+    navigation.dispatch(CommonActions.goBack());
+    dispatch(clearMovieDetails());
+  }, [navigation, dispatch]);
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      handleLeftContentPress();
+      return true;
+    });
+  }, [handleLeftContentPress]);
+
   if (loading) {
     return <Spinner absCenter />;
   }
@@ -55,11 +67,6 @@ export const Movie: FC<MovieProps> = ({
       return;
     }
     dispatch(addMovieToFavourites(m));
-  };
-
-  const handleLeftContentPress = () => {
-    navigation.dispatch(CommonActions.goBack());
-    dispatch(clearMovieDetails());
   };
 
   const onRefresh = () => {

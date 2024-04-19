@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect} from 'react';
 import {LogBox, Platform} from 'react-native';
 
-import {MySDK} from 'movies-sdk';
+import {MoviesSDK} from 'movies-sdk';
 //@ts-ignore
 import NativeDevSettings from 'react-native/Libraries/NativeModules/specs/NativeDevSettings';
 import {Provider} from 'react-redux';
@@ -12,7 +12,7 @@ import {SDKContextProvider} from './src/context';
 
 LogBox.ignoreAllLogs();
 
-const client = new MySDK();
+const client = new MoviesSDK();
 
 const sdkStore = client.getStore();
 

@@ -5,7 +5,6 @@ import {SDKContext} from '__root/src/context';
 
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
-import {getMovieDetails} from 'store/movie';
 import {debounce, isFavourite} from 'utils';
 
 import {InputText, MoviesListEmptyComponent, Spinner} from 'components/';
@@ -31,6 +30,7 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
     setFilterValue,
     addMovieToFavourites,
     removeMovieFromFavourites,
+    getMovieDetails,
   } = getActions();
 
   const {

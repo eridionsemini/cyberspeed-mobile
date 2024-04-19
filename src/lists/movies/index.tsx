@@ -17,6 +17,7 @@ export const MoviesList: FC<MoviesListProps> = ({
   onRefresh,
   handleItemPress,
   handleHeartPress,
+  ListEmptyComponent,
 }): ReactElement => {
   const renderItem = ({item}: ListItem) => (
     <Movie
@@ -40,6 +41,7 @@ export const MoviesList: FC<MoviesListProps> = ({
       renderItem={renderItem}
       getItemCount={getItemCount}
       onRefresh={onRefresh}
+      ListEmptyComponent={ListEmptyComponent}
     />
   );
 };

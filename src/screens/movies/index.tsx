@@ -20,7 +20,7 @@ import {
 } from 'store/movies';
 import {debounce, isFavourite} from 'utils';
 
-import {InputText, Spinner} from 'components/';
+import {InputText, MoviesListEmptyComponent, Spinner} from 'components/';
 
 import {Movie} from 'general-types';
 
@@ -94,13 +94,14 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
         autoCapitalize="none"
       />
       <MoviesList
-        data={data ?? []}
+        data={[]}
         fav={fav}
         onEndReached={onEndReached}
         onRefresh={onRefresh}
         refreshing={refreshing}
         handleItemPress={handleItemPress}
         handleHeartPress={handleHeartPress}
+        ListEmptyComponent={MoviesListEmptyComponent}
       />
       {loading && <Spinner />}
     </SafeAreaView>

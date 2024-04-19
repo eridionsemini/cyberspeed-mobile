@@ -1,3 +1,5 @@
+import {ComponentType} from 'react';
+
 import {Movie} from 'general-types';
 
 export interface MoviesListProps {
@@ -11,6 +13,7 @@ export interface MoviesListProps {
   handleItemPress?: (v: string) => void;
   handleHeartPress: (v: Movie) => void;
   fav: Array<Movie>;
+  ListEmptyComponent?: ComponentType<any>;
 }
 
 export interface ListItem {

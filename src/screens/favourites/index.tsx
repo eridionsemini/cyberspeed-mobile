@@ -1,12 +1,13 @@
 import React, {FC, ReactElement} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
-import {getMargins} from '__root/src/utils';
-
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {MoviesList} from 'lists';
 import {favouritesSelector, removeMovieFromFavourites} from 'store/favourites';
 import {getMovieDetails} from 'store/movie';
+import {getMargins} from 'utils';
+
+import {FavouriteMoviesListEmptyComponent} from 'components/';
 
 import {Movie} from 'general-types';
 
@@ -34,6 +35,7 @@ export const Favourites: FC<FavouritesProps> = ({navigation}): ReactElement => {
         fav={fav}
         handleItemPress={handleItemPress}
         handleHeartPress={handleHeartPress}
+        ListEmptyComponent={FavouriteMoviesListEmptyComponent}
       />
     </SafeAreaView>
   );

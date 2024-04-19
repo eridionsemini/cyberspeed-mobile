@@ -26,6 +26,14 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 
 ```bash
 # using npm
+add local.properies file inside android dir with path to local Android SDK 
+example sdk.dir=/Users/eridionsemini/Library/Android/sdk
+
+export JAVA_HOME to use version 17 
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+
+
 npm run android
 
 # OR using Yarn
@@ -35,6 +43,10 @@ yarn android
 ### For iOS
 
 ```bash
+# install pods
+
+cd ios && pod install
+
 # using npm
 npm run ios
 

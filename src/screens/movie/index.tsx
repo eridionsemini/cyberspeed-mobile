@@ -13,7 +13,7 @@ import {
 import {clearMovieDetails, movieDetailsSelector, refreshMovieDetails} from 'store/movie';
 import {convertStringToArray, getMargins, isFavourite} from 'utils';
 
-import {Heart, NavigationBar} from 'components/';
+import {Heart, NavigationBar, Spinner} from 'components/';
 
 import styles from './styles';
 import {MovieProps} from './types';
@@ -27,8 +27,12 @@ export const Movie: FC<MovieProps> = ({
   },
 }): ReactElement | null => {
   const dispatch = useAppDispatch();
-  const {details: movie, loading, refreshing} = useAppSelector(movieDetailsSelector);
+  const {details: movie, refreshing, loading} = useAppSelector(movieDetailsSelector);
   const {data: fav} = useAppSelector(favouritesSelector);
+
+  if (loading) {
+    return <Spinner absCenter />;
+  }
 
   if (!movie) {
     return null;

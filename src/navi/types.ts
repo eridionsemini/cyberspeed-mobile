@@ -14,6 +14,7 @@ export type MoviesStackProps = NativeStackNavigationProp<MoviesStackParamList>;
 // favourite stack types
 export type FavouriteMoviesStackParamsList = {
   favouriteMovies: undefined;
+  movieDetails: {id: string};
 };
 
 export type FavouriteMoviesStackProps = NativeStackNavigationProp<FavouriteMoviesStackParamsList>;

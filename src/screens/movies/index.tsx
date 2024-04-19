@@ -8,6 +8,7 @@ import {
   favouritesSelector,
   removeMovieFromFavourites,
 } from 'store/favourites';
+import {getMovieDetails} from 'store/movie';
 import {
   getMoviesList,
   incrementMoviesListPage,
@@ -56,6 +57,7 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
 
   const handleItemPress = (v: string) => {
     navigation.navigate('movieDetails', {id: v});
+    dispatch(getMovieDetails({i: v}));
   };
 
   const handleHeartPress = (movie: Movie) => {
@@ -80,7 +82,7 @@ export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
       dispatch(getMoviesList({s: 'movie', page: 1}));
       setFetched(true);
     }
-  }, [data?.length, dispatch, loading, page]);
+  }, [data, dispatch, loading, page, fetched]);
 
   return (
     <SafeAreaView style={[commonStyles.container]}>

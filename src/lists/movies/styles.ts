@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   image: {
-    width: wp('100%') - 16,
+    width: wp('100%') - spacing.md,
     height: 200,
     borderRadius: spacing.sm,
   },

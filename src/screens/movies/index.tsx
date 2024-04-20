@@ -1,24 +1,25 @@
-import React, { FC, ReactElement, useContext, useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native';
-import { SDKContext } from '__root/src/context';
-import { useAppDispatch, useAppSelector } from 'hooks';
-import { MoviesList } from 'lists';
-import { debounce, isFavourite } from 'utils';
+import React, {FC, ReactElement, useContext, useEffect, useState} from 'react';
+import {SafeAreaView} from 'react-native';
 
-import { InputText, MoviesListEmptyComponent, Spinner } from 'components/';
+import {SDKContext} from '__root/src/context';
+import {Movie} from 'movies-sdk';
 
-import { Movie } from 'general-types';
+import {useAppDispatch, useAppSelector} from 'hooks';
+import {MoviesList} from 'lists';
+import {debounce, isFavourite} from 'utils';
 
-import { MoviesProps } from './types';
+import {InputText, MoviesListEmptyComponent, Spinner} from 'components/';
+
+import {MoviesProps} from './types';
 
 import commonStyles from 'assets/styles/common';
 
-export const Movies: FC<MoviesProps> = ({ navigation }): ReactElement => {
+export const Movies: FC<MoviesProps> = ({navigation}): ReactElement => {
   const [fetched, setFetched] = useState<boolean>(false);
 
-  const { getActions, getSelectors, apiKey } = useContext(SDKContext);
+  const {getActions, getSelectors, apiKey} = useContext(SDKContext);
 
-  const { favouritesSelector, moviesSelector } = getSelectors();
+  const {favouritesSelector, moviesSelector} = getSelectors();
   const {
     refreshMoviesList,
     resetMoviesListPage,
@@ -37,28 +38,28 @@ export const Movies: FC<MoviesProps> = ({ navigation }): ReactElement => {
     refreshing,
     hasMore,
     page,
-    filter: { s },
+    filter: {s},
   } = useAppSelector(moviesSelector);
 
-  const { data: fav } = useAppSelector(favouritesSelector);
+  const {data: fav} = useAppSelector(favouritesSelector);
 
   const dispatch = useAppDispatch();
 
   const onRefresh = () => {
-    dispatch(refreshMoviesList({ page: 1, s, apiKey }));
+    dispatch(refreshMoviesList({page: 1, s, apiKey}));
     dispatch(resetMoviesListPage());
   };
 
   const onEndReached = () => {
     if (hasMore) {
-      dispatch(loadMoreMovies({ page: page + 1, s, apiKey }));
+      dispatch(loadMoreMovies({page: page + 1, s, apiKey}));
       dispatch(incrementMoviesListPage());
     }
   };
 
   const handleItemPress = (v: string) => {
-    navigation.navigate('movieDetails', { id: v });
-    dispatch(getMovieDetails({ i: v }));
+    navigation.navigate('movieDetails', {id: v});
+    dispatch(getMovieDetails({i: v, apiKey}));
   };
 
   const handleHeartPress = (movie: Movie) => {
@@ -70,20 +71,20 @@ export const Movies: FC<MoviesProps> = ({ navigation }): ReactElement => {
     dispatch(addMovieToFavourites(movie));
   };
   const handleDebouncedInputChange = debounce((value: string) => {
-    dispatch(getMoviesList({ page, s: value ,apiKey}));
+    dispatch(getMoviesList({page, s: value, apiKey}));
   }, 1000);
 
   const handleInputChange = (txt: string) => {
-    dispatch(setFilterValue({ key: 's', value: txt }));
+    dispatch(setFilterValue({key: 's', value: txt}));
     handleDebouncedInputChange(txt);
   };
 
   useEffect(() => {
     if (!loading && data && data.length === 0 && !fetched) {
-      dispatch(getMoviesList({ s: 'movie', page: 1 ,apiKey}));
+      dispatch(getMoviesList({s: 'movie', page: 1, apiKey}));
       setFetched(true);
     }
-  }, [data, dispatch, loading, page, fetched, getMoviesList]);
+  }, [data, dispatch, loading, page, fetched, getMoviesList, apiKey]);
 
   return (
     <SafeAreaView style={[commonStyles.container]}>

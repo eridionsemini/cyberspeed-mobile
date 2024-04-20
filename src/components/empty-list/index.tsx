@@ -1,7 +1,7 @@
 import React, {FC, ReactElement} from 'react';
 import {Text, View} from 'react-native';
 
-import {getMargins} from '__root/src/utils';
+import {getMargins} from 'utils';
 
 import styles from './styles';
 

@@ -1,10 +1,10 @@
 import React, {FC, ReactElement, useCallback, useContext, useEffect} from 'react';
 import {BackHandler, RefreshControl, SafeAreaView, ScrollView, Text, View} from 'react-native';
 
+import {SDKContext} from '__root/src/context';
 import {CommonActions} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 
-import {SDKContext} from '__root/src/context';
 import {useAppDispatch, useAppSelector} from 'hooks';
 import {convertStringToArray, getMargins, isFavourite} from 'utils';
 
@@ -21,7 +21,7 @@ export const Movie: FC<MovieProps> = ({
     params: {id},
   },
 }): ReactElement | null => {
-  const {getActions, getSelectors} = useContext(SDKContext);
+  const {getActions, getSelectors, apiKey} = useContext(SDKContext);
   const dispatch = useAppDispatch();
   const {favouritesSelector, movieDetailsSelector} = getSelectors();
   const {addMovieToFavourites, removeMovieFromFavourites, clearMovieDetails, refreshMovieDetails} =
@@ -70,7 +70,7 @@ export const Movie: FC<MovieProps> = ({
 
   const onRefresh = () => {
     dispatch(clearMovieDetails());
-    dispatch(refreshMovieDetails({i: id}));
+    dispatch(refreshMovieDetails({i: id, apiKey}));
   };
 
   return (

@@ -1,6 +1,6 @@
 import {ComponentType} from 'react';
 
-import {Movie} from 'general-types';
+import {Movie} from 'movies-sdk';
 
 export interface MoviesListProps {
   data: Array<Movie>;

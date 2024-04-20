@@ -1,7 +1,7 @@
 import React, {createContext, FC, ReactElement, ReactNode} from 'react';
 
-import {MoviesSDK} from 'movies-sdk';
 import {REACT_APP_MOVIES_API_KEY} from '@env';
+import {MoviesSDK} from 'movies-sdk';
 interface SDKContextProps {
   children: ReactNode;
 }
